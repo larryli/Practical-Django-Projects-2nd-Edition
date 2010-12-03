@@ -9,5 +9,6 @@ urlpatterns = patterns('',
 	(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve',
 		{'document_root': '/home/gavin/Documents/Practical-Django-Projects-2nd-Edition/scripts/tiny_mce/'}),
 
+	(r'^search/$', 'cms.search.views.search'),
 	(r'', include('django.contrib.flatpages.urls')),
 )
