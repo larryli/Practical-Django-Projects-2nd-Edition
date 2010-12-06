@@ -24,6 +24,15 @@ class Category(models.Model):
 
 class Entry(models.Model):
 
+	LIVE_STATUS = 1
+	DRAFT_STATUS = 2
+	HIDDEN_STATUS = 3
+	STATUS CHOICES = (
+		(LIVE_STATUS, 'Live'),
+		(DRAFT_STATUS, 'Draft'),
+		(HIDDEN_STATUS, 'Hidden'),
+	)
+
 	title = models.CharField(max_length=250)
 	slug = models.SlugField(unique_for_date='pub_date')
 	excerpt = models.TextField(blank=True)
@@ -32,5 +41,5 @@ class Entry(models.Model):
 	pub_date = models.DateTimeField(default=datetime.datetime.now)
 	enable_comments = models.BooleanField(default=True)
 	featured = models.BooleanField(default=False)
-
+	status = models.IntegerField(choices=STATUS_CHOICES, default=LIVE_STATUS)
 
