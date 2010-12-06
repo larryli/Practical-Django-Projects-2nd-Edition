@@ -30,5 +30,7 @@ class Entry(models.Model):
 	body = models.TextField()
 	author = models.ForeignKey(User)
 	pub_date = models.DateTimeField(default=datetime.datetime.now)
+	enable_comments = models.BooleanField(default=True)
+	featured = models.BooleanField(default=False)
 
 
