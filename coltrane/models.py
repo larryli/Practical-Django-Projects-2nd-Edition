@@ -22,6 +22,7 @@ class Category(models.Model):
 class Entry(models.Model):
 
 	title = models.CharField(max_length=250)
+	slug = models.SlugField(unique_for_date='pub_date')
 	excerpt = models.TextField(blank=True)
 	body = models.TextField()
 	pub_date = models.DateTimeField()
