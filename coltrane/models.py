@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.contrib.auth.models
 
 
 class Category(models.Model):
@@ -27,6 +28,7 @@ class Entry(models.Model):
 	slug = models.SlugField(unique_for_date='pub_date')
 	excerpt = models.TextField(blank=True)
 	body = models.TextField()
+	author = models.ForeignKey(User)
 	pub_date = models.DateTimeField(default=datetime.datetime.now)
 
 
