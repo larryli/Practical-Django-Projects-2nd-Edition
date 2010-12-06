@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.contrib.auth.models
 
+from tagging.fields import TagField
 
 class Category(models.Model):
 
@@ -43,4 +44,5 @@ class Entry(models.Model):
 	featured = models.BooleanField(default=False)
 	status = models.IntegerField(choices=STATUS_CHOICES, default=LIVE_STATUS)
 	categories = models.ManyToManyField(Category)
+	tags = TagField()
 
