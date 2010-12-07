@@ -10,5 +10,6 @@ urlpatterns = patterns('',
 		{'document_root': '/home/gavin/Documents/Practical-Django-Projects-2nd-Edition/scripts/tiny_mce/'}),
 
 	(r'^search/$', 'cms.search.views.search'),
+	(r'^weblog/$', 'coltrane.views.entries_index'),
 	(r'', include('django.contrib.flatpages.urls')),
 )
