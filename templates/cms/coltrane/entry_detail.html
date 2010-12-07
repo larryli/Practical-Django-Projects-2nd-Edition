@@ -1,0 +1,11 @@
+<html>
+	<head>
+		<title>{{ object.title }}</title>
+	</head>
+	<body>
+		<h1>{{ object.title }}</h1>
+		<p>{{ object.author }} - {{ object.pub_date|date:"F j, Y" }}</p>
+		{{ object.body_html|safe }}
+		<a href="/weblog/">Back</a>
+	</body>
+</html>
