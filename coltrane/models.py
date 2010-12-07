@@ -1,7 +1,7 @@
 import datetime
 
 from django.db import models
-from django.contrib.auth.models
+from django.contrib.auth.models import User
 
 from markdown import markdown
 from tagging.fields import TagField
@@ -28,7 +28,7 @@ class Entry(models.Model):
 	LIVE_STATUS = 1
 	DRAFT_STATUS = 2
 	HIDDEN_STATUS = 3
-	STATUS CHOICES = (
+	STATUS_CHOICES = (
 		(LIVE_STATUS, 'Live'),
 		(DRAFT_STATUS, 'Draft'),
 		(HIDDEN_STATUS, 'Hidden'),
