@@ -49,6 +49,16 @@ class Entry(models.Model):
 	categories = models.ManyToManyField(Category)
 	tags = TagField()
 
+	class Meta:
+		verbose_name_plural = 'Entries'
+		ordering = ['-pub_date']
+
+	def __unicode__(self):
+		return self.title
+	
+	def get_absolute_url(self):
+		return '/weblog/%s/%s/' % (self.pub_date.strftime('%Y/%b/%d').lower(), self.slug)
+
 	def save(self, force_insert=False, force_update=False):
 
 		self.body_html = markdown(self.body)
