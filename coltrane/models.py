@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.contrib.auth.models
 
+from markdown import markdown
 from tagging.fields import TagField
 
 class Category(models.Model):
@@ -38,6 +39,8 @@ class Entry(models.Model):
 	slug = models.SlugField(unique_for_date='pub_date')
 	excerpt = models.TextField(blank=True)
 	body = models.TextField()
+	excerpt_html = models.TextField(editable=False, blank=True)
+	body_html = models.TextField(editable=False, blank=True)
 	author = models.ForeignKey(User)
 	pub_date = models.DateTimeField(default=datetime.datetime.now)
 	enable_comments = models.BooleanField(default=True)
@@ -46,3 +49,11 @@ class Entry(models.Model):
 	categories = models.ManyToManyField(Category)
 	tags = TagField()
 
+	def save(self, force_insert=False, force_update=False):
+
+		self.body_html = markdown(self.body)
+
+		if self.excerpt:
+			self.excerpt_html = markdown(self.excerpt)
+
+		super(Entry, self).save(force_insert, force_update)
