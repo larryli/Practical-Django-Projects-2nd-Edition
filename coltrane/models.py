@@ -16,7 +16,6 @@ class Category(models.Model):
 		ordering = ['title']
 		verbose_name_plural = "Categories"
 
-
 	def __unicode__(self):
 		return self.title
 
@@ -35,29 +34,33 @@ class Entry(models.Model):
 		(HIDDEN_STATUS, 'Hidden'),
 	)
 
+	# core fields
 	title = models.CharField(max_length=250)
-	slug = models.SlugField(unique_for_date='pub_date')
 	excerpt = models.TextField(blank=True)
 	body = models.TextField()
+	pub_date = models.DateTimeField(default=datetime.datetime.now)
+	
+	# fields to store generated html
 	excerpt_html = models.TextField(editable=False, blank=True)
 	body_html = models.TextField(editable=False, blank=True)
+	
+	# metadata
 	author = models.ForeignKey(User)
-	pub_date = models.DateTimeField(default=datetime.datetime.now)
 	enable_comments = models.BooleanField(default=True)
 	featured = models.BooleanField(default=False)
+	slug = models.SlugField(unique_for_date='pub_date')
 	status = models.IntegerField(choices=STATUS_CHOICES, default=LIVE_STATUS)
+
+	# categorization
 	categories = models.ManyToManyField(Category)
 	tags = TagField()
 
 	class Meta:
-		verbose_name_plural = 'Entries'
 		ordering = ['-pub_date']
+		verbose_name_plural = 'Entries'
 
 	def __unicode__(self):
 		return self.title
-	
-	def get_absolute_url(self):
-		return '/weblog/%s/%s/' % (self.pub_date.strftime('%Y/%b/%d').lower(), self.slug)
 
 	def save(self, force_insert=False, force_update=False):
 
@@ -67,3 +70,6 @@ class Entry(models.Model):
 			self.excerpt_html = markdown(self.excerpt)
 
 		super(Entry, self).save(force_insert, force_update)
+	
+	def get_absolute_url(self):
+		return '/weblog/%s/%s/' % (self.pub_date.strftime('%Y/%b/%d').lower(), self.slug)
