@@ -83,20 +83,11 @@ class Entry(models.Model):
 
 class Link(models.Model):
 
-	# metadata
-	enable_comments = models.BooleanField(default=True)
-	post_elsewhere = models.BooleanField(
-		'Post to Delicious',
-		default=True,
-		help_text='If checked, this link will also be posted to your del.icio.us account.')
-	posted_by = models.ForeignKey(User)
-	pub_date = models.DateTimeField(default=datetime.datetime.now)
-	slug = models.SlugField(unique_for_date='pub_date', help_text='Must be unique for the publication date.')
+	url = models.URLField(unique=True)
 	title = models.CharField(max_length=250)
-
-	# the actual link data
+	slug = models.SlugField(unique_for_date='pub_date', help_text='Must be unique for the publication date.')
 	description = models.TextField(blank=True)
-	description_html = models.TextField(blank=True)
+	description_html = models.TextField(editable=False, blank=True)
 	via_name = models.CharField(
 		'Via',
 		max_length=250,
@@ -107,7 +98,16 @@ class Link(models.Model):
 		blank=True,
 		help_text='The URL of the site where you spotted the link. Optional.')
 	tags = TagField()
-	url = models.URLField(unique=True)
+
+	
+	# metadata
+	enable_comments = models.BooleanField(default=True)
+	post_elsewhere = models.BooleanField(
+		'Post to Delicious',
+		default=True,
+		help_text='If checked, this link will also be posted to your del.icio.us account.')
+	posted_by = models.ForeignKey(User)
+	pub_date = models.DateTimeField(default=datetime.datetime.now)
 
 
 	class Meta:
@@ -123,16 +123,21 @@ class Link(models.Model):
 			self.description_html = markdown(self.description)
 
 		if not self.id and self.post_elsewhere:
+			pass
 
-			import pydelicious
-			from django.utils.encoding import smart_str
+			# del.icio.us authentication doesn't work right now
+			# I started playing with twitter
+			# but it's a real pain in the ass for a simple tutorial
 
-			pydelicious.add(
-				settings.DELICIOUS_USER,
-				settings.DELICIOUS_PASSWORD,
-				smart_str(self.url),
-				smart_str(self.title),
-				smart_str(self.tags))
+#			import pydelicious
+#			from django.utils.encoding import smart_str
+
+#			pydelicious.add(
+#				settings.DELICIOUS_USER,
+#				settings.DELICIOUS_PASSWORD,
+#				smart_str(self.url),
+#				smart_str(self.title),
+#				smart_str(self.tags))
 
 		super(Link, self).save()
 
