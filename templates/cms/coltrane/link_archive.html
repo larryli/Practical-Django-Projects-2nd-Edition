@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>Links Index</title>
+	</head>
+	<body>
+		<h1>Links Index</h1>
+		{% for link in latest %}
+			<h2><a href='{{ link.get_absolute_url }}'>{{ link.title }}</a></h2>
+			<p>Published on {{ link.pub_date|date:'F j, Y' }}</p>
+			{% if link.description_html %}
+				{{ link.description_html|safe }}
+			{% endif %}
+		{% endfor %}
+	</body>
+</html>
+

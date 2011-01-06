@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Links published in {{ month|date:"F Y" }}</title>
+  </head>
+  <body>
+    <h1>Links published in {{ month|date:"F Y" }}</h1>
+    {% for link in object_list %}
+	<h2><a href="{{ link.get_absolute_url }}">{{ link.title }}</a></h2>
+      <p>Published on {{ link.pub_date|date:"F j, Y" }}</p>
+      {% if link.description_html %}
+       {{ link.description_html|safe }}
+      {% endif %}
+    {% endfor %}
+  </body>
+</html>

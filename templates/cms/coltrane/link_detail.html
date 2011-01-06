@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>{{ object.title }}</title>
+	</head>
+	<body>
+		<h1><a href="{{ object.url }}">{{ object.title }}</a></h1>
+		<p>{{ object.posted_by }} - {{ object.pub_date|date:"F j, Y" }}</p>
+		{% if object.description_html %}
+			{{ object.description_html|safe }}
+		{% endif %}
+		{% if object.via_name %}
+			{% if object.via_url %}
+				<p>[<a href="{{ object.url }}">read</a>|<a href="{{ object.via_url }}">via {{ object.via_name }}</a>]</p>
+			{% else %}
+				<p>[<a href="{{ object.url }}">read</a>|via {{ object.via_name }}]</p>
+			{% endif %}
+		{% else %}
+			{% if object.via_url %}
+				<p>[<a href="{{ object.url }}">read</a>|<a href="{{ object.via_url }}">via</a>]</p>
+			{% else %}
+				<p>[<a href="{{ object.url }}">read</a>]</p>
+			{% endif %}
+		{% endif %}
+	</body>
+</html>
