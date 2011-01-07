@@ -23,6 +23,16 @@ class Category(models.Model):
 	def get_absolute_url(self):
 		return '/categories/%s/' % self.slug
 
+	def live_entry_set(self):
+		from coltrane.models import Entry
+		return self.entry_set.filter(status=Entry.LIVE_STATUS)
+
+
+class LiveEntryManager(models.Manager):
+
+	def get_query_set(self):
+		return super(LiveEntryManager, self).get_query_set().filter(status=self.model.LIVE_STATUS)
+
 
 class Entry(models.Model):
 
@@ -79,6 +89,9 @@ class Entry(models.Model):
 			 'month': self.pub_date.strftime('%b').lower(),
 			 'day': self.pub_date.strftime('%d'),
 			 'slug': self.slug})
+
+	live = LiveEntryManager()
+	objects = models.Manager()
 
 
 class Link(models.Model):

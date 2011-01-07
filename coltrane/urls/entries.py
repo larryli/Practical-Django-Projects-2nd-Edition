@@ -3,7 +3,7 @@ from django.conf.urls.defaults import *
 from coltrane.models import Entry
 
 entry_info_dict = {
-	'queryset': Entry.objects.all(),
+	'queryset': Entry.live.all(),
 	'date_field': 'pub_date',
 }
 

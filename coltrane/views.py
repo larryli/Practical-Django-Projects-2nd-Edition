@@ -10,5 +10,5 @@ def category_detail(request, slug):
 
 	return object_list(
 		request,
-		queryset=category.entry_set.all(),
+		queryset=category.live_entry_set.all(),
 		extra_content={'category': category})
