@@ -20,11 +20,13 @@ class Category(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	@models.permalink
 	def get_absolute_url(self):
-		return '/categories/%s/' % self.slug
+		#return '/categories/%s/' % self.slug
+		return ('coltrane_category_detail', (), { 'slug': self.slug })
 
 	def live_entry_set(self):
-		from coltrane.models import Entry
+		#from coltrane.models import Entry
 		return self.entry_set.filter(status=Entry.LIVE_STATUS)
 
 
