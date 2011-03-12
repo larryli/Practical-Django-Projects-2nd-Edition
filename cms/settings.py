@@ -1,4 +1,5 @@
 # Django settings for cms project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,7 +13,7 @@ MANAGERS = ADMINS
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': '/home/gavin/Documents/Practical-Django-Projects-2nd-Edition/cms/cms.db',
+		'NAME': os.path.join(os.path.dirname(os.path.realpath(__file__)), 'cms.db'),
 		'USER': '',                      # Not used with sqlite3.
 		'PASSWORD': '',                  # Not used with sqlite3.
 		'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -78,7 +79,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'cms.urls'
 
 TEMPLATE_DIRS = (
-	'/home/gavin/Documents/Practical-Django-Projects-2nd-Edition/templates/cms',
+	os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'templates/cms'),
 )
 
 INSTALLED_APPS = (
