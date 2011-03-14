@@ -8,7 +8,7 @@ urlpatterns = patterns('',
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 	(r'^admin/', include(admin.site.urls)),
 	(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve',
-		{'document_root': os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'scripts/tiny_mce/')}),
+		{'document_root': os.path.join(os.path.dirname(os.path.abspath(os.path.dirname(__file__))), 'scripts/tiny_mce/')}),
 
 	(r'^weblog/categories/', include('coltrane.urls.categories')),
 	(r'^weblog/links/', include('coltrane.urls.links')),

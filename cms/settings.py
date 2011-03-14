@@ -13,7 +13,7 @@ MANAGERS = ADMINS
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(os.path.dirname(os.path.realpath(__file__)), 'cms.db'),
+		'NAME': os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cms.db'),
 		'USER': '',                      # Not used with sqlite3.
 		'PASSWORD': '',                  # Not used with sqlite3.
 		'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -79,7 +79,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'cms.urls'
 
 TEMPLATE_DIRS = (
-	os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'templates/cms'),
+	os.path.join(os.path.dirname(os.path.abspath(os.path.dirname(__file__))), 'templates/cms'),
 )
 
 INSTALLED_APPS = (
